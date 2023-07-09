@@ -1,0 +1,1 @@
+<DecisionTree classNames="PDD,psychotic deprission"><Node feature="introvert" answer="no"><Node><Disorder name="PDD" /></Node></Node><Node feature="introvert" answer="yes"><Node><Disorder name="psychotic deprission" /></Node></Node></DecisionTree>
