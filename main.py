@@ -66,7 +66,22 @@ def check_all_messages(message):
 
     return long.unknown() if highest_prob_list[best_match] < 1 else best_match
 
-
+def findDisorder(root):
+    # root = DecisionTree
+    # root = tree_xml.getroot()
+    for child in root:
+        # this means the disorder is already located
+        if(child.tag == "Disorder"):
+            print("Bot: => Your disorder is: " + child.get("name"))
+            break
+        print("Bot: Do you have this symptom: " + child.get("feature") + "?")
+        answer = input("You: ")
+        if(answer == child.get("answer")):
+            # firstly check if this node had the 
+            # start checking inside the nested node
+            return findDisorder(child)          
+        else:
+            return findDisorder(root[1])
 # Used to get the response
 def get_response(user_input):
     if(age != 0):
@@ -74,7 +89,11 @@ def get_response(user_input):
         decision_tree = db_fxn.createDecisionTree(symptomsArray, int(age))
         tree_xml = decision_tree_to_xml(decision_tree[0], feature_names=decision_tree[2], class_names=decision_tree[0].classes_)
         tree_xml.write('decision_tree2.xml')
-        return "decision tree is created"
+        print("Bot: We are going to ask you questions, answer with yes or no")
+        # processing decision tree
+        findDisorder(tree_xml.getroot())
+
+        return "You can now exit!"
     else:
         split_message = re.split(r'\s+|[,;?!.-]\s*', user_input.lower())
         response = check_all_messages(split_message)
@@ -94,7 +113,7 @@ while True:
     
     if(ageAsking):
         if(you.isdigit()):
-            if(int(you) > 15 and int(you) < 100):
+            if(int(you) >=4  and int(you)):
                 age = you
                 ageAsking = False
             else:

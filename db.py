@@ -42,9 +42,10 @@ myconn = createConnection()
 
 def createDecisionTree(symptoms_array, age=25):
     query = "select * from chatbot_mental_issues where "
-    for symptom in symptoms_array:
-        query = query + symptom + " = 1 and "
-    query = query + " age <" + str(age+5) + " and age > " + str(age-5)
+    symptoms_list = list(symptoms_array)
+    for i in range(len(symptoms_list)-1):
+        query = query + symptoms_list[i] + " = 1 and "
+    query = query + symptoms_list[len(symptoms_list)-1] + " = 1"
     # cur = myconn.cursor()
     # cur.execute(query)
     rows = pd.read_sql(query, myconn)
