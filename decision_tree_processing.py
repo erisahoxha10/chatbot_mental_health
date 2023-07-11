@@ -27,7 +27,7 @@ def process_line(lines, parent_element, current_level, last_nodes):
     while lines:
         line = lines[0]
         line_level = get_indentation_level(line)
-        print(str(line_level) + " " + str(current_level) + " " + line)
+        # print(str(line_level) + " " + str(current_level) + " " + line)
 
         if line_level >= current_level:
             lines.pop(0)

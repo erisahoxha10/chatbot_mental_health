@@ -74,14 +74,20 @@ def findDisorder(root):
         if(child.tag == "Disorder"):
             print("Bot: => Your disorder is: " + child.get("name"))
             break
-        print("Bot: Do you have this symptom: " + child.get("feature") + "?")
+        print("Bot: " + questions[str(child.get("feature"))])
         answer = input("You: ")
+        # check if the answer is yes/no
+        while(answer != "yes" and answer != "no"):
+            print("Bot: Please type a valid answer: yes or no!")
+            answer = input("You: ")
+        
         if(answer == child.get("answer")):
-            # firstly check if this node had the 
             # start checking inside the nested node
             return findDisorder(child)          
         else:
             return findDisorder(root[1])
+
+
 # Used to get the response
 def get_response(user_input):
     if(age != 0):
@@ -103,7 +109,14 @@ def get_response(user_input):
 chat = {}
 symptomsArray = set()
 responses = util.initializeResponses()
+questions = util.initializeSymptomsQuestions()
 age = 0
+# print the entry of the chatbot
+print("Bot: Hello! This a chatbot that is supposed to help you.")
+print("Bot wishes you well, you can have a fun chat with it, \n" +
+      "but the real purpose is to help you in case do not feel \n" +  
+      "your best and bot can help you find more about what is going on.\n" + 
+      "Hope you will enjoy chatting. Tell Bot more about you!")
 # Testing the response system
 while True:
     you = input('You: ')
